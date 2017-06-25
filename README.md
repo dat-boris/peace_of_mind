@@ -7,7 +7,13 @@ This uses the mindwave device - this is an amazing piece of
 device which allow us to adapt our mind to different brightness.
 
 
-## Getting started
+## Getting started (Mac)
+
+Get started with the driver at the various articles... And get the right version for your OS!
+
+* [OSX 5.10](http://support.neurosky.com/kb/mindwave/cant-get-the-connection-with-mindwave-in-mac-os-x-1010)
+* [OSX 5.11](http://support.neurosky.com/kb/mindwave/mindwave-cant-work-on-mac-osx-1011-or-higher)
+
 
 
 ```

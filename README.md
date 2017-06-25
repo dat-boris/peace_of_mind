@@ -28,6 +28,8 @@ python pom.py
 
 https://pypi.python.org/pypi/NeuroPy/0.1
 
+Documentation at: http://pythonhosted.org/NeuroPy/
+
 
 ## Other research API of choices
 

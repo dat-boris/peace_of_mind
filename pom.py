@@ -13,26 +13,35 @@ DEBUG = False
 
 #object1=NeuroPy("/dev/rfcomm0") for linux
 #object1=NeuroPy("COM6") for windows
-object1=NeuroPy('/dev/tty.MindWave')
+mindwave_obj = NeuroPy('/dev/tty.MindWave')
 bar = progressbar.ProgressBar(max_value=progressbar.UnknownLength)
+
+def print_debug(obj):
+    pprint({
+        attr: getattr(obj, attr, 'n/a')
+        for attr in [
+            'attention',
+            'meditation',
+            'poorSignal',
+            'blinkStrengthrawValue',
+            'delta',
+            'theta'
+        ]
+    })
+
 
 if __name__=="__main__":
     print("Starting....")
-    print(object1.start())
+    print(mindwave_obj.start())
 
-    while True:
-        if DEBUG:
-            pprint({
-                attr: getattr(object1, attr, 'n/a')
-                for attr in [
-                    'attention',
-                    'meditation',
-                    'poorSignal',
-                    'blinkStrengthrawValue',
-                    'delta',
-                    'theta'
-                ]
-            })
+    try:
+        while True:
+            if DEBUG: print_debug(mindwave_obj)
+            # print(mindwave_obj.meditation)
+            bar.update(mindwave_obj.meditation)
 
-        # print(object1.meditation)
-        bar.update(object1.meditation)
+    except KeyboardInterrupt:
+        pass
+
+    finally:
+        mindwave_obj.stop()

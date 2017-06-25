@@ -27,6 +27,9 @@ python pom.py
 
 * `mindwave-python` - https://github.com/BarkleyUS/mindwave-python
 
+Note currently we explicitly import this - we will provide
+PR to package this.
+
 
 ## Other research API of choices
 

@@ -6,6 +6,7 @@ import time
 import six
 from pprint import pprint
 
+import progressbar
 from NeuroPy import NeuroPy
 
 DEBUG = False
@@ -13,6 +14,7 @@ DEBUG = False
 #object1=NeuroPy("/dev/rfcomm0") for linux
 #object1=NeuroPy("COM6") for windows
 object1=NeuroPy('/dev/tty.MindWave')
+bar = progressbar.ProgressBar(max_value=progressbar.UnknownLength)
 
 if __name__=="__main__":
     print("Starting....")
@@ -32,4 +34,5 @@ if __name__=="__main__":
                 ]
             })
 
-        print(object1.meditation)
+        # print(object1.meditation)
+        bar.update(object1.meditation)

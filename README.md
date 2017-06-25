@@ -7,7 +7,12 @@ This uses the mindwave device - this is an amazing piece of
 device which allow us to adapt our mind to different brightness.
 
 
-## API of choices
+## Chosen API
+
+* `mindwave-python` - https://github.com/BarkleyUS/mindwave-python
+
+
+## Other research API of choices
 
 Search for [Python on nerosky.com](http://support.neurosky.com/search?utf8=%E2%9C%93&q=python) did show up much
 
@@ -21,7 +26,8 @@ Search for [Python on nerosky.com](http://support.neurosky.com/search?utf8=%E2%9
     - https://github.com/neuropy/neuropy/blob/master/setup.py
 * NeuroPy - https://github.com/lihas/NeuroPy
     - Tutorial at https://lihashgnis.blogspot.ca/2013/05/neuropy-python-library-for-interfacing.html
-
+* `mindwave-python` - https://github.com/BarkleyUS/mindwave-python
+  - they dont have a packaging, but the claim to be mac friendly
 
 ## Diming terminal brightness
 

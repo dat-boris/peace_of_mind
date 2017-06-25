@@ -1,7 +1,7 @@
 
 # Peace of mind
 
-A project using mindwave to detect how mediatation have an effect on your brain.  This is based on how peace of mind and detect if people have been stressed.
+A project using Mindwave electroencephalogram (EEG) to detect how mediatation have an effect on your brain.  This is based on how peace of mind and detect if people have been stressed.
 
 This uses the mindwave device - this is an amazing piece of
 device which allow us to adapt our mind to different brightness.

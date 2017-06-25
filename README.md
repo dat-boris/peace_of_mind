@@ -7,6 +7,16 @@ This uses the mindwave device - this is an amazing piece of
 device which allow us to adapt our mind to different brightness.
 
 
+## Getting started
+
+
+```
+git clone https://github.com/BarkleyUS/mindwave-python.git
+ln -s mindwave-python/mindwave.py mindwave.py
+pip install -r requirements.txt
+python pom.py
+```
+
 ## Chosen API
 
 * `mindwave-python` - https://github.com/BarkleyUS/mindwave-python

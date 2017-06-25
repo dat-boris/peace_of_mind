@@ -16,9 +16,10 @@ Get started with the driver at the various articles... And get the right version
 
 
 
+## Getting started
+
 ```
-git clone https://github.com/BarkleyUS/mindwave-python.git
-ln -s mindwave-python/mindwave.py mindwave.py
+sudo pip install pyserial
 pip install -r requirements.txt
 python pom.py
 ```

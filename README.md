@@ -26,10 +26,7 @@ python pom.py
 
 ## Chosen API
 
-* `mindwave-python` - https://github.com/BarkleyUS/mindwave-python
-
-Note currently we explicitly import this - we will provide
-PR to package this.
+https://pypi.python.org/pypi/NeuroPy/0.1
 
 
 ## Other research API of choices

@@ -1,5 +1,6 @@
 import six
 import mindwave, time
+from pprint import pprint
 
 headset = mindwave.Headset(
     '/dev/tty.MindWave',
@@ -16,11 +17,16 @@ while headset.status != 'connected':
     if headset.status == 'standby':
         headset.connect()
         print("Retrying connect...")
-print "Connected."
+print("Connected.")
 
 try:
     while True:
-        print("Attention: %s, Meditation: %s" % (headset.attention, headset.meditation))
+        pprint({
+            attr: getattr(headset, attr, 'n/a')
+            for attr in [
+                'attention', 'meditation', 'blink', 'poor_signal'
+            ]
+            })
         time.sleep(1)
 except KeyboardInterrupt:
     pass

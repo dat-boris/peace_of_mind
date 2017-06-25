@@ -1,1 +1,2 @@
-neuropy==0.1
+pyserial==3.3
+six==1.10.0

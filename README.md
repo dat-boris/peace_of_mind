@@ -7,7 +7,31 @@ This uses the mindwave device - this is an amazing piece of
 device which allow us to adapt our mind to different brightness.
 
 
-## API of choices
+## Getting started (Mac)
+
+Get started with the driver at the various articles... And get the right version for your OS!
+
+* [OSX 5.10](http://support.neurosky.com/kb/mindwave/cant-get-the-connection-with-mindwave-in-mac-os-x-1010)
+* [OSX 5.11](http://support.neurosky.com/kb/mindwave/mindwave-cant-work-on-mac-osx-1011-or-higher)
+
+
+
+```
+git clone https://github.com/BarkleyUS/mindwave-python.git
+ln -s mindwave-python/mindwave.py mindwave.py
+pip install -r requirements.txt
+python pom.py
+```
+
+## Chosen API
+
+* `mindwave-python` - https://github.com/BarkleyUS/mindwave-python
+
+Note currently we explicitly import this - we will provide
+PR to package this.
+
+
+## Other research API of choices
 
 Search for [Python on nerosky.com](http://support.neurosky.com/search?utf8=%E2%9C%93&q=python) did show up much
 
@@ -21,7 +45,8 @@ Search for [Python on nerosky.com](http://support.neurosky.com/search?utf8=%E2%9
     - https://github.com/neuropy/neuropy/blob/master/setup.py
 * NeuroPy - https://github.com/lihas/NeuroPy
     - Tutorial at https://lihashgnis.blogspot.ca/2013/05/neuropy-python-library-for-interfacing.html
-
+* `mindwave-python` - https://github.com/BarkleyUS/mindwave-python
+  - they dont have a packaging, but the claim to be mac friendly
 
 ## Diming terminal brightness
 

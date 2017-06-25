@@ -55,8 +55,19 @@ Using `brew install brightness`
 https://apple.stackexchange.com/questions/34884/how-can-i-dim-the-screen-from-terminal
 
 
+------------------
+
 ## Reference docs
 
 * Peter's doc on meditation (private) - https://docs.google.com/spreadsheets/d/1UgdONdcpPxBt7prwHqWeNIUL91cydNg18iyx3CHDruQ/edit#gid=1662609415
 
 * MAAS questionnaire - https://ppc.sas.upenn.edu/resources/questionnaires-researchers/mindful-attention-awareness-scale
+
+
+------------------
+
+## TODO
+
+- [ ] I need to unplug dongle everytime I restart - can I prevent this?
+- [ ] Optimize for the GUI on how to setup
+- [ ] Integrate with brightness

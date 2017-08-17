@@ -1,6 +1,8 @@
 
 # Peace of mind
 
+**Hackathon DEMO video**: https://youtu.be/gguhPnN588c?t=10m51s
+
 A project using Mindwave electroencephalogram (EEG) to detect how mediatation have an effect on your brain.  This is based on how peace of mind and detect if people have been stressed.
 
 This uses the mindwave device - this is an amazing piece of

@@ -63,10 +63,16 @@ class StreeQueue(object):
         return self.avg_stress < self.STRESS_THRESHOLD
 
     def is_disconnected(self):
+        """ If value is the same, then it is stuck
+
+        Except if it is zero, then possibly just we have
+        taken off the headset!
+        """
         if len(self.queue_list) < self.MAX_SAME:
             return False
         last_queues = self.queue_list[:self.MAX_SAME]
-        return len(set(last_queues)) == 1
+        unique_values = set(last_queues)
+        return len(unique_values) == 1 and (0 not in unique_values)
 
     def reset(self):
         self.queue_list = []

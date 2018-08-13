@@ -35,8 +35,14 @@ def print_debug(obj):
 
 
 class StreeQueue(object):
-    MAX_QUEUE_SIZE = 3
+    MAX_QUEUE_SIZE = 65
     STRESS_THRESHOLD = 50
+    # According to documentation, if it is same for 15 seconds
+    # then it might be disconnected
+    # But it also takes approx 1 min to warm up initially...
+    MAX_SAME = 60
+
+    assert MAX_SAME <= MAX_QUEUE_SIZE, "MAX_SAME must be less than MAX_QUEUE_SIZE"
 
     def __init__(self):
         self.queue_list = []
@@ -56,6 +62,15 @@ class StreeQueue(object):
     def check_is_stress(self):
         return self.avg_stress < self.STRESS_THRESHOLD
 
+    def is_disconnected(self):
+        if len(self.queue_list) < self.MAX_SAME:
+            return False
+        last_queues = self.queue_list[:self.MAX_SAME]
+        return len(set(last_queues)) == 1
+
+    def reset(self):
+        self.queue_list = []
+
 
 @click.command()
 @click.option('--verbose', default=False)
@@ -64,7 +79,7 @@ def main(verbose, check_stress):
     print("Starting....")
     print(mindwave_obj.start())
 
-    sq = StreeQueue() if check_stress else None
+    sq = StreeQueue()
     is_stressed = False
 
     try:
@@ -75,13 +90,20 @@ def main(verbose, check_stress):
 
             med_value = mindwave_obj.meditation
 
-            if (check_stress):
-                sq.add(med_value)
+            sq.add(med_value)
 
+            if (check_stress):
                 current_stress = sq.check_is_stress()
                 if (current_stress != is_stressed):
                     is_stressed = current_stress
                     print("Stress: {}".format(current_stress))
+
+            if sq.is_disconnected():
+                print("Disconnected.  Restarting....\n")
+                mindwave_obj.stop()
+                sq.reset()
+                time.sleep(5)
+                mindwave_obj.start()
 
             bar.update(med_value)
 

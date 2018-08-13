@@ -26,6 +26,12 @@ pip install -r requirements.txt
 python pom.py
 ```
 
+If you have [pipenv](https://github.com/pypa/pipenv) installed, just do:
+
+```
+pipenv shell
+```
+
 ## Chosen API
 
 https://pypi.python.org/pypi/NeuroPy/0.1

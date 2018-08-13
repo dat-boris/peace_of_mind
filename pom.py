@@ -7,6 +7,7 @@ import six
 from pprint import pprint
 from datetime import datetime
 
+import click
 import progressbar
 from NeuroPy import NeuroPy
 
@@ -58,12 +59,12 @@ class StreeQueue(object):
 
 @click.command()
 @click.option('--verbose', default=False)
-@click.option('--stress', default=False, help='Check for stress broundry')
-def main(verbose, stress_check):
+@click.option('--check_stress', default=False, help='Check for stress broundry')
+def main(verbose, check_stress):
     print("Starting....")
     print(mindwave_obj.start())
 
-    sq = StreeQueue() if stress_check else None
+    sq = StreeQueue() if check_stress else None
     is_stressed = False
 
     try:
@@ -74,7 +75,7 @@ def main(verbose, stress_check):
 
             med_value = mindwave_obj.meditation
 
-            if (stress_check):
+            if (check_stress):
                 sq.add(med_value)
 
                 current_stress = sq.check_is_stress()

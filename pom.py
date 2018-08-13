@@ -7,16 +7,18 @@ import six
 from pprint import pprint
 from datetime import datetime
 
+import click
 import progressbar
 from NeuroPy import NeuroPy
 
 DEBUG = False
 
-#object1=NeuroPy("/dev/rfcomm0") for linux
-#object1=NeuroPy("COM6") for windows
+# object1=NeuroPy("/dev/rfcomm0") for linux
+# object1=NeuroPy("COM6") for windows
 mindwave_obj = NeuroPy('/dev/tty.MindWave')
 bar = progressbar.ProgressBar(max_value=progressbar.UnknownLength)
-logfile = open('stress.log','a')
+logfile = open('stress.log', 'a')
+
 
 def print_debug(obj):
     pprint({
@@ -33,8 +35,14 @@ def print_debug(obj):
 
 
 class StreeQueue(object):
-    MAX_QUEUE_SIZE = 3
+    MAX_QUEUE_SIZE = 65
     STRESS_THRESHOLD = 50
+    # According to documentation, if it is same for 15 seconds
+    # then it might be disconnected
+    # But it also takes approx 1 min to warm up initially...
+    MAX_SAME = 60
+
+    assert MAX_SAME <= MAX_QUEUE_SIZE, "MAX_SAME must be less than MAX_QUEUE_SIZE"
 
     def __init__(self):
         self.queue_list = []
@@ -54,8 +62,20 @@ class StreeQueue(object):
     def check_is_stress(self):
         return self.avg_stress < self.STRESS_THRESHOLD
 
+    def is_disconnected(self):
+        if len(self.queue_list) < self.MAX_SAME:
+            return False
+        last_queues = self.queue_list[:self.MAX_SAME]
+        return len(set(last_queues)) == 1
 
-if __name__=="__main__":
+    def reset(self):
+        self.queue_list = []
+
+
+@click.command()
+@click.option('--verbose', default=False)
+@click.option('--check_stress', default=False, help='Check for stress broundry')
+def main(verbose, check_stress):
     print("Starting....")
     print(mindwave_obj.start())
 
@@ -64,16 +84,26 @@ if __name__=="__main__":
 
     try:
         while True:
-            if DEBUG: print_debug(mindwave_obj)
-            # print(mindwave_obj.meditation)
+            if verbose:
+                print_debug(mindwave_obj)
+                print(mindwave_obj.meditation)
+
             med_value = mindwave_obj.meditation
 
             sq.add(med_value)
 
-            current_stress = sq.check_is_stress()
-            if (current_stress != is_stressed):
-                is_stressed = current_stress
-                print("Stress: {}".format(current_stress))
+            if (check_stress):
+                current_stress = sq.check_is_stress()
+                if (current_stress != is_stressed):
+                    is_stressed = current_stress
+                    print("Stress: {}".format(current_stress))
+
+            if sq.is_disconnected():
+                print("Disconnected.  Restarting....\n")
+                mindwave_obj.stop()
+                sq.reset()
+                time.sleep(5)
+                mindwave_obj.start()
 
             bar.update(med_value)
 
@@ -90,3 +120,7 @@ if __name__=="__main__":
     finally:
         mindwave_obj.stop()
         logfile.close()
+
+
+if __name__ == "__main__":
+    main()

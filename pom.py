@@ -12,11 +12,12 @@ from NeuroPy import NeuroPy
 
 DEBUG = False
 
-#object1=NeuroPy("/dev/rfcomm0") for linux
-#object1=NeuroPy("COM6") for windows
+# object1=NeuroPy("/dev/rfcomm0") for linux
+# object1=NeuroPy("COM6") for windows
 mindwave_obj = NeuroPy('/dev/tty.MindWave')
 bar = progressbar.ProgressBar(max_value=progressbar.UnknownLength)
-logfile = open('stress.log','a')
+logfile = open('stress.log', 'a')
+
 
 def print_debug(obj):
     pprint({
@@ -55,25 +56,31 @@ class StreeQueue(object):
         return self.avg_stress < self.STRESS_THRESHOLD
 
 
-if __name__=="__main__":
+@click.command()
+@click.option('--verbose', default=False)
+@click.option('--stress', default=False, help='Check for stress broundry')
+def main(verbose, stress_check):
     print("Starting....")
     print(mindwave_obj.start())
 
-    sq = StreeQueue()
+    sq = StreeQueue() if stress_check else None
     is_stressed = False
 
     try:
         while True:
-            if DEBUG: print_debug(mindwave_obj)
-            # print(mindwave_obj.meditation)
+            if verbose:
+                print_debug(mindwave_obj)
+                print(mindwave_obj.meditation)
+
             med_value = mindwave_obj.meditation
 
-            sq.add(med_value)
+            if (stress_check):
+                sq.add(med_value)
 
-            current_stress = sq.check_is_stress()
-            if (current_stress != is_stressed):
-                is_stressed = current_stress
-                print("Stress: {}".format(current_stress))
+                current_stress = sq.check_is_stress()
+                if (current_stress != is_stressed):
+                    is_stressed = current_stress
+                    print("Stress: {}".format(current_stress))
 
             bar.update(med_value)
 
@@ -90,3 +97,7 @@ if __name__=="__main__":
     finally:
         mindwave_obj.stop()
         logfile.close()
+
+
+if __name__ == "__main__":
+    main()
